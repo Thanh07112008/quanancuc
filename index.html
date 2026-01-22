@@ -639,6 +639,29 @@
         box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
     }
 
+    #notif-btn {
+        padding: 10px 14px;
+        font-size: 1em;
+        border-radius: 8px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+        position: relative;
+        margin-right: 8px;
+    }
+    #notif-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 6px 16px rgba(255, 107, 107, 0.3);
+        transform: translateY(-1px);
+    }
+
     #admin-search-box {
         display: flex;
         gap: 10px;
@@ -1624,6 +1647,7 @@
         color: #fff;
     }
 
+    @media (max-width: 480px) {
         body.mobile-mode .product button {
             width: calc(100% - 20px) !important;
         }
@@ -1868,9 +1892,9 @@
             <div class="admin-header">
                 <h2><i class="fas fa-cogs"></i> Trang Quản Trị Đơn Hàng</h2>
                 <div class="admin-header-actions">
-                    <button id="notif-btn" onclick="openNotifications()" style="position:relative; margin-right:8px;">
-                        <i class="fas fa-bell"></i>
-                        <span id="notif-badge" style="position:absolute; top:-6px; right:-6px; background:#e74c3c; color:#fff; font-size:0.75rem; padding:3px 6px; border-radius:999px; display:none;">0</span>
+                    <button id="notif-btn" onclick="openNotifications()" title="Thông báo đơn hàng mới" style="font-size: 1.2em; padding: 12px 16px;">
+                        🔔
+                        <span id="notif-badge" style="position:absolute; top:-8px; right:-8px; background:#e74c3c; color:#fff; font-size:0.7rem; padding:4px 7px; border-radius:999px; display:none; font-weight:bold; min-width:20px; text-align:center;">0</span>
                     </button>
                     <button id="admin-stats-btn-admin" title="Thống kê món đã đặt" style="padding:8px 12px; border-radius:8px; border:none; background:#fff; color:var(--primary-color); font-weight:700; display:flex; align-items:center; gap:8px;">
                         <i class="fas fa-utensils"></i> Thống kê Món
@@ -2039,7 +2063,7 @@
 
             productList.innerHTML = filteredProducts.map(product => `
                 <div class="product" data-id="${product.id}">
-                    <img src="${product.image}" alt="${product.name}" />
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x180?text=${encodeURIComponent(product.name)}'" />
                     <h3>${product.name}</h3>
                     <p>Giá: ${product.price.toLocaleString()} VNĐ</p>
                     <button onclick="addToCart(${product.id})"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
@@ -2466,7 +2490,7 @@
         function renderPreOrderProducts() {
             document.getElementById('pre-order-product-list').innerHTML = products.map(product => `
                 <div class="product">
-                    <img src="${product.image}" alt="${product.name}" />
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x180?text=${encodeURIComponent(product.name)}'" />
                     <h3>${product.name}</h3>
                     <p>Giá: ${product.price.toLocaleString()} VNĐ</p>
                     <div style="display:flex; justify-content:center; gap: 5px;">
@@ -2663,15 +2687,27 @@
             const items = adminNotifications.map(code => {
                 const idx = orders.findIndex(o => o.code === code);
                 const order = orders[idx] || { code };
-                return { code, idx, name: order.customer ? order.customer.name : 'Khách ẩn' };
+                const itemCount = order.items ? order.items.length : 0;
+                const itemNames = order.items ? order.items.map(i => i.name).join(', ') : 'Không rõ';
+                return { code, idx, name: order.customer ? order.customer.name : 'Khách ẩn', items: order.items || [], itemCount, itemNames };
             }).filter(it => !filter || it.code.toUpperCase().includes(filter.toUpperCase()));
 
             if (items.length === 0) { list.innerHTML = '<i>Không có thông báo mới.</i>'; return; }
             list.innerHTML = items.map((it, index) => `
-                <div style="padding:10px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-weight:700;">${it.name}</div>
-                        <div style="color:#666; font-size:0.95rem;">Mã: ${it.code}</div>
+                <div style="padding:10px; border-bottom:1px solid #eee; display:flex; gap:12px; align-items:flex-start;">
+                    <div style="display:flex; gap:5px; flex-wrap:wrap; min-width:80px;">
+                        ${it.items.slice(0, 3).map((item, i) => `
+                            <img src="${item.image || 'https://via.placeholder.com/60x60?text=Food'}" alt="${item.name}" 
+                                 style="width:50px; height:50px; object-fit:cover; border-radius:4px;" 
+                                 onerror="this.src='https://via.placeholder.com/60x60?text=${encodeURIComponent(item.name)}'" />
+                        `).join('')}
+                    </div>
+                    <div style="flex:1;">
+                        <div style="font-weight:700; margin-bottom:4px;">${it.name}</div>
+                        <div style="color:#666; font-size:0.85rem; margin-bottom:4px;">Mã: ${it.code}</div>
+                        <div style="color:#888; font-size:0.8rem; max-height:40px; overflow:hidden;">
+                            <strong>${it.itemCount} sản phẩm:</strong> ${it.itemNames}
+                        </div>
                     </div>
                     <div style="display:flex; gap:8px;">
                         <button class="toggle-detail-btn" data-order-code="${it.code}">Chi tiết</button>

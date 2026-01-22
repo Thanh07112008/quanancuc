@@ -2575,6 +2575,14 @@
             }, 300);
         }
         
+        window.selectPaymentMethod = function(method, btn) {
+            selectedPaymentMethod = method;
+            document.querySelectorAll('#payment-methods button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('qr-code-container').style.display = (method === 'qr') ? 'block' : 'none';
+            document.getElementById('bank-info-container').style.display = (method === 'bank') ? 'block' : 'none';
+        }
+        
         // --- Device Selection Handler ---
         window.selectDevice = function(deviceType) {
             const modal = document.getElementById('device-selection-modal');

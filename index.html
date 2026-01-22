@@ -6,29 +6,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        
-    /* ===================================== */
-    /* BƯỚC 1: Cập nhật Bảng Màu và Font Chữ */
-    /* ===================================== */
     :root {
-        /* Thay đổi màu giao diện - chỉ CSS (không sửa JS) */
-        --primary-color: #2C3E50;      /* xanh đậm cho header và các nút chính */
-        --secondary-color: #E67E22;    /* màu nút hành động (cam) */
-        --accent-color: #F1C40F;       /* điểm nhấn vàng */
-        --bg-color: #F6F8F9;           /* nền nhạt hơn */
-        --card-bg: #FFFFFF;            /* nền thẻ */
-        --text-color: #2C3E50;         /* chữ chính */
-        --light-text-color: #7F8C8D;   /* chữ phụ */
-        --border-radius: 12px;
-        --shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
-        --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --primary-color: #1a1a2e;
+        --secondary-color: #ff6b6b;
+        --accent-color: #ffd93d;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-color: #1a1a2e;
+        --light-text-color: #6c757d;
+        --border-radius: 16px;
+        --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #ff8e72 100%);
+        --gradient-accent: linear-gradient(135deg, #ffd93d 0%, #ff9f5a 100%);
     }
 
     body {
         font-family: 'Poppins', sans-serif;
         margin: 0;
         padding: 0;
-        background-color: var(--bg-color);
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
         color: var(--text-color);
         line-height: 1.6;
         overflow-x: hidden;
@@ -36,13 +35,27 @@
 
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif;
-        color: var(--secondary-color);
         margin-top: 0;
     }
-    h1 { font-size: 2.8em; font-weight: 700; color: #fff; }
-    h2 { font-size: 2.2em; border-bottom: 2px solid #EEE; padding-bottom: 15px; margin-bottom: 25px; }
+    h1 { 
+        font-size: 2.8em; 
+        font-weight: 700; 
+        color: #fff;
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        letter-spacing: 1px;
+    }
+    h2 { 
+        font-size: 2.2em; 
+        border-bottom: 3px solid transparent;
+        border-image: var(--gradient-secondary) 1;
+        padding-bottom: 15px; 
+        margin-bottom: 25px;
+        background: linear-gradient(135deg, #ff6b6b 0%, #ff8e72 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 
-    /* General styles */
     .container {
         max-width: 1200px;
         margin: auto;
@@ -50,38 +63,40 @@
     }
 
     header {
-        background-color: var(--primary-color);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #fff;
-        padding: 15px 40px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px 40px;
+        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
         display: flex;
-        justify-content: center; /* đặt tiêu đề giữa */
+        justify-content: center;
         align-items: center;
-        position: relative; /* để đặt admin-btn tuyệt đối */
+        position: relative;
+        backdrop-filter: blur(10px);
     }
 
-    /* Nút admin: di chuyển qua trái, nền trong suốt để giữ tiêu đề ở giữa */
     #admin-btn {
         position: absolute;
         left: 18px;
         top: 50%;
         transform: translateY(-50%);
-        background-color: transparent;
+        background: rgba(255,255,255,0.1);
         color: #fff;
-        border: 2px solid rgba(255,255,255,0.12);
+        border: 2px solid rgba(255,255,255,0.3);
         padding: 10px 16px;
         font-size: 1em;
         font-weight: 600;
         border-radius: 12px;
         cursor: pointer;
         transition: var(--transition);
-        box-shadow: none;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
     }
 
     #admin-btn:hover {
-        background-color: rgba(255,255,255,0.06);
-        border-color: rgba(255,255,255,0.22);
-        transform: translateY(-50%) scale(1.02);
+        background: rgba(255,255,255,0.2);
+        border-color: rgba(255,255,255,0.5);
+        transform: translateY(-50%) scale(1.05);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
     }
 
     .main-container {
@@ -104,6 +119,25 @@
         border-radius: var(--border-radius);
         box-shadow: var(--shadow);
         transition: var(--transition);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .card:hover {
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        transform: translateY(-5px);
     }
 
     .card.left-sidebar, .card.right-sidebar {
@@ -111,9 +145,6 @@
         min-height: 500px;
     }
 
-    /* ===================================== */
-    /* BƯỚC 2: Nâng cấp Thiết Kế Thẻ Sản Phẩm */
-    /* ===================================== */
     .category-filter {
         display: flex;
         justify-content: flex-start;
@@ -123,21 +154,39 @@
     }
 
     .category-btn {
-        background-color: var(--bg-color);
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         color: var(--light-text-color);
-        border: 1px solid #D5D5D5;
+        border: 2px solid transparent;
         padding: 10px 20px;
         border-radius: 25px;
         cursor: pointer;
         transition: var(--transition);
         font-weight: 600;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .category-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-secondary);
+        transition: left 0.3s ease;
+        z-index: -1;
+    }
+
+    .category-btn:hover::before, .category-btn.active::before {
+        left: 0;
     }
 
     .category-btn.active, .category-btn:hover {
-        background-color: var(--secondary-color);
         color: #fff;
         border-color: var(--secondary-color);
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
     }
 
     #product-list {
@@ -148,19 +197,36 @@
 
     .product {
         border-radius: var(--border-radius);
-        padding: 20px 20px 80px; /* thêm khoảng dưới để đặt nút ở đáy */
+        padding: 20px 20px 80px;
         text-align: center;
-        background: var(--card-bg);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
         transition: var(--transition);
         cursor: pointer;
         position: relative;
         overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .product::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .product:hover::before {
+        opacity: 1;
     }
 
     .product:hover {
-        box-shadow: var(--shadow);
-        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+        transform: translateY(-12px);
     }
 
     .product img {
@@ -169,26 +235,28 @@
         object-fit: cover;
         border-radius: 10px;
         margin-bottom: 15px;
-        transition: transform 0.3s ease;
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+        filter: brightness(1);
     }
     .product:hover img {
-        transform: scale(1.05);
+        transform: scale(1.1) rotateY(5deg);
+        filter: brightness(1.1);
     }
 
     .product h3 {
         margin: 10px 0 5px 0;
         font-size: 1.3em;
         color: var(--text-color);
+        font-weight: 600;
     }
 
     .product p {
-        color: var(--primary-color);
+        color: var(--secondary-color);
         font-weight: 700;
         font-size: 1.3em;
         margin: 0 0 15px 0;
     }
 
-    /* Đặt nút 'Thêm vào giỏ' ở đáy thẻ */
     .product button {
         position: absolute;
         bottom: 16px;
@@ -196,7 +264,7 @@
         transform: translateX(-50%);
         width: calc(100% - 40px);
         max-width: 220px;
-        background: var(--secondary-color);
+        background: var(--gradient-secondary);
         color: #fff;
         border: none;
         padding: 12px 10px;
@@ -209,11 +277,16 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
+        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
     }
 
     .product button:hover {
-        background: #FF9A3C;
-        transform: translateX(-50%) scale(1.03);
+        transform: translateX(-50%) scale(1.05);
+        box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+    }
+
+    .product button:active {
+        transform: translateX(-50%) scale(0.98);
     }
 
     #toast-notification {
@@ -221,22 +294,35 @@
         bottom: 30px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: var(--secondary-color);
+        background: var(--gradient-secondary);
         color: #fff;
-        padding: 12px 25px;
-        border-radius: 30px;
+        padding: 15px 30px;
+        border-radius: 50px;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out, transform 0.5s ease-in-out;
+        transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out, transform 0.4s ease-in-out;
         z-index: 1000;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
         font-weight: 600;
+        backdrop-filter: blur(10px);
     }
 
     #toast-notification.show {
         opacity: 1;
         visibility: visible;
-        transform: translateX(-50%) translateY(-10px);
+        transform: translateX(-50%) translateY(-15px);
+        animation: slideDown 0.4s ease-out;
+    }
+
+    @keyframes slideDown {
+        from {
+            transform: translateX(-50%) translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(-50%) translateY(-15px);
+            opacity: 1;
+        }
     }
 
     .main-action-btn {
@@ -245,32 +331,36 @@
         padding: 15px;
         font-size: 1.1em;
         font-weight: bold;
-        border-radius: 10px;
+        border-radius: 12px;
         transition: var(--transition);
+        border: none;
+        cursor: pointer;
     }
 
     #order-btn {
-        background-color: var(--secondary-color);
+        background: var(--gradient-secondary);
         color: #fff;
-        border: none;
-        box-shadow: var(--shadow);
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
     }
 
     #order-btn:hover {
-        background-color: #FF7A33;
         transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+    }
+
+    #order-btn:active {
+        transform: translateY(-1px);
     }
 
     #check-order-btn {
-        background: var(--primary-color);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #fff;
-        border: none;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
     }
 
     #check-order-btn:hover {
-        background: #243746;
         transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
     }
 
     .cart-item {
@@ -278,7 +368,19 @@
         align-items: center;
         margin-bottom: 15px;
         padding-bottom: 15px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+        animation: slideInLeft 0.4s ease-out;
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
 
     .cart-item:last-child {
@@ -291,6 +393,13 @@
         object-fit: cover;
         border-radius: 10px;
         margin-right: 15px;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
+        transition: var(--transition);
+    }
+
+    .cart-item:hover img {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
     }
 
     .cart-item-info {
@@ -306,7 +415,7 @@
 
     .cart-item-info p {
         margin: 5px 0 0;
-        color: var(--primary-color);
+        color: var(--secondary-color);
         font-weight: bold;
         font-size: 1.1em;
     }
@@ -314,9 +423,10 @@
     .quantity-control {
         display: flex;
         align-items: center;
-        background-color: #F0F0F0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
         border-radius: 20px;
         padding: 5px;
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .quantity-control button {
@@ -332,8 +442,8 @@
     }
 
     .quantity-control button:hover {
-        background-color: #E0E0E0;
-        transform: scale(1.1);
+        background: rgba(255, 107, 107, 0.15);
+        transform: scale(1.15);
     }
 
     .quantity-control span {
@@ -347,11 +457,12 @@
     #check-order-result {
         margin-top: 20px;
         padding: 18px;
-        background-color: #e8f5e9;
-        border: 1px solid #c8e6c9;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        border: 2px solid rgba(102, 126, 234, 0.3);
         border-radius: var(--border-radius);
-        color: #388e3c;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        color: #667eea;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.1);
+        animation: slideUp 0.5s ease-out;
     }
 
     #check-order-result ul {
@@ -360,25 +471,24 @@
         margin: 10px 0 0;
     }
 
-    /* ===================================== */
-    /* BƯỚC 3: Tối ưu Giỏ Hàng và Modal */
-    /* ===================================== */
     .modal, .admin-page, .pre-order-modal {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.5);
         display: none;
         justify-content: center;
         align-items: center;
         z-index: 1000;
         opacity: 0;
-        transition: opacity 0.3s ease-in-out;
+        transition: opacity 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+        backdrop-filter: blur(0px);
     }
     .modal.show, .admin-page.show, .pre-order-modal.show {
         opacity: 1;
+        backdrop-filter: blur(5px);
     }
 
     .modal-content {
@@ -387,13 +497,15 @@
         background: var(--card-bg);
         padding: 30px;
         border-radius: var(--border-radius);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         min-width: 450px;
         text-align: center;
         position: relative;
         transform: scale(0.95);
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         opacity: 0;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
     .modal.show .modal-content {
         transform: scale(1);
@@ -403,21 +515,23 @@
     .admin-page-content {
         background: var(--card-bg);
         border-radius: var(--border-radius);
-        box-shadow: var(--shadow);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         min-width: 90%;
-        max-width: 1000px;
+        max-width: 1400px;
         height: 90vh;
         display: flex;
         flex-direction: column;
         padding: 30px;
         position: relative;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .pre-order-modal-content {
         background: var(--card-bg);
         padding: 30px;
         border-radius: var(--border-radius);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         width: 80%;
         max-width: 700px;
         text-align: center;
@@ -425,6 +539,8 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .pre-order-modal-content .product {
@@ -480,22 +596,22 @@
         padding-bottom: 10px;
     }
 
-    /* ===================================== */
-    /* BƯỚC 4: Cải thiện trang Admin */
-    /* ===================================== */
     .admin-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
-        border-bottom: 2px solid #eee;
+        border-bottom: 2px solid rgba(102, 126, 234, 0.2);
         padding-bottom: 10px;
     }
 
     .admin-header h2 {
         border-bottom: none;
         margin-bottom: 0;
-        color: var(--secondary-color);
+        background: var(--gradient-secondary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
     .admin-header-actions {
@@ -505,19 +621,22 @@
     }
 
     #clear-completed-orders-btn {
-        padding: 8px 15px;
+        padding: 10px 18px;
         font-size: 0.9em;
-        border-radius: 8px;
+        border-radius: 10px;
         border: none;
         color: #fff;
         cursor: pointer;
         transition: var(--transition);
-        background-color: #E67E22;
-        display: flex; align-items: center; gap: 5px;
+        background: var(--gradient-secondary);
+        display: flex; 
+        align-items: center; 
+        gap: 5px;
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
     }
     #clear-completed-orders-btn:hover {
-        background-color: #D35400;
         transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
     }
 
     #admin-search-box {
@@ -528,24 +647,44 @@
     #admin-search-input {
         flex-grow: 1;
         padding: 12px;
-        border: 1px solid #CCC;
-        border-radius: 8px;
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        border-radius: 10px;
         font-size: 1em;
+        transition: var(--transition);
+    }
+    #admin-search-input:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
     #admin-search-btn, #admin-search-clear-btn {
-        padding: 10px 15px;
+        padding: 10px 18px;
         border: none;
-        border-radius: 8px;
+        border-radius: 10px;
         color: #fff;
         cursor: pointer;
         font-weight: bold;
-        transition: background-color 0.3s;
-        display: flex; align-items: center; gap: 5px;
+        transition: var(--transition);
+        display: flex; 
+        align-items: center; 
+        gap: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
-    #admin-search-btn { background-color: #3498DB; }
-    #admin-search-btn:hover { background-color: #2980B9; }
-    #admin-search-clear-btn { background-color: #E74C3C; display: none; }
-    #admin-search-clear-btn:hover { background-color: #C0392B; }
+    #admin-search-btn { 
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    #admin-search-btn:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+    #admin-search-clear-btn { 
+        background: var(--gradient-secondary);
+        display: none; 
+    }
+    #admin-search-clear-btn:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+    }
 
     #admin-dashboard {
         display: grid;
@@ -555,141 +694,456 @@
         text-align: center;
     }
     .dashboard-item {
-        background: #F0F4F7;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
         padding: 20px;
         border-radius: var(--border-radius);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         transition: var(--transition);
+        border: 2px solid rgba(102, 126, 234, 0.1);
     }
-    .dashboard-item:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
-    .dashboard-item h4 { margin: 0; font-size: 1.1em; color: #777; }
-    .dashboard-item p { margin: 5px 0 0; font-size: 2.5em; font-weight: bold; color: var(--secondary-color); }
-    .dashboard-item.total p { color: #3498DB; }
-    .dashboard-item.paid p { color: #51C0F7; }
-    .dashboard-item.pending p { color: #E67E22; }
-    .dashboard-item.completed p { color: #2ECC71; }
-    .dashboard-item.bank p { color: #2C3E50; }
+    .dashboard-item:hover { 
+        transform: translateY(-5px); 
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        border-color: rgba(102, 126, 234, 0.3);
+    }
+    .dashboard-item h4 { 
+        margin: 0; 
+        font-size: 1.1em; 
+        color: #777; 
+        font-weight: 600;
+    }
+    .dashboard-item p { 
+        margin: 10px 0 0; 
+        font-size: 2.5em; 
+        font-weight: bold; 
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .dashboard-item.total p { 
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .dashboard-item.paid p { 
+        background: linear-gradient(135deg, #51c0f7 0%, #667eea 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .dashboard-item.pending p { 
+        background: var(--gradient-accent);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .dashboard-item.completed p { 
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .dashboard-item.bank p { 
+        background: linear-gradient(135deg, #ff6b6b 0%, #ff8e72 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 
-    #admin-filter-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+    #admin-filter-buttons { 
+        display: flex; 
+        justify-content: center; 
+        gap: 10px; 
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
     .filter-btn {
-        background-color: #ECF0F1;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         color: #2C3E50;
-        border: 1px solid #BDC3C7;
+        border: 2px solid transparent;
         padding: 10px 20px;
-        border-radius: 20px;
+        border-radius: 25px;
         cursor: pointer;
         font-weight: 600;
-        transition: all 0.2s;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+    }
+    .filter-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-secondary);
+        transition: left 0.3s ease;
+        z-index: -1;
+    }
+    .filter-btn:hover::before, .filter-btn.active::before {
+        left: 0;
     }
     .filter-btn:hover, .filter-btn.active {
-        background-color: var(--secondary-color);
         color: #fff;
         border-color: var(--secondary-color);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        transform: translateY(-2px);
     }
 
-    #orders-list-admin-filtered { flex-grow: 1; overflow-y: auto; padding-right: 15px; }
+    #orders-list-admin-filtered { 
+        flex-grow: 1; 
+        overflow-y: auto; 
+        padding-right: 15px; 
+    }
 
     .admin-order-item {
-        background: #F7F7F7;
-        padding: 20px;
-        border-radius: 10px;
+        display: grid;
+        grid-template-columns: 1fr 240px;
+        gap: 18px;
+        align-items: start;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        padding: 16px;
+        border-radius: 12px;
         margin-bottom: 15px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         transition: var(--transition);
+        border: 1px solid rgba(102, 126, 234, 0.1);
+        animation: slideInLeft 0.4s ease-out;
     }
 
-    .admin-order-item:hover { transform: scale(1.01); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+    .admin-order-item:hover { 
+        transform: translateX(5px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+        border-color: rgba(102, 126, 234, 0.3);
+    }
+
+    .admin-order-item .order-info {
+        padding-right: 6px;
+    }
+
+    .admin-order-item .order-info ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+        max-height: 240px;
+        overflow-y: auto;
+    }
+
+    .admin-order-item .order-actions {
+        justify-self: end;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+        width: 100%;
+    }
+    .admin-order-item .order-actions button {
+        font-size: 0.92rem;
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .admin-order-item .order-info p, .admin-order-item .order-info h4 {
+        word-break: break-word;
+    }
 
     .order-info p { margin: 5px 0; }
     .order-info h4 { font-size: 1.2em; color: #333; margin-bottom: 10px; }
 
     .order-actions { margin-top: 15px; display: flex; gap: 10px; justify-content: flex-end; }
-    .order-actions button { padding: 8px 15px; font-size: 0.9em; border-radius: 8px; border: none; color: #fff; cursor: pointer; transition: background 0.3s; display: flex; align-items: center; gap: 5px; }
-    .order-actions .btn-da-thanh-toan { background: #2ECC71; }
-    .order-actions .btn-da-thanh-toan:hover { background: #27AE60; }
-    .order-actions .btn-da-lay-hang { background: #3498DB; }
-    .order-actions .btn-da-lay-hang:hover { background: #2980B9; }
-    .order-actions .btn-xoa-don { background: #DC3545; }
-    .order-actions .btn-xoa-don:hover { background: #C82333; }
+    
+    .order-actions .btn-da-thanh-toan { 
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    }
+    .order-actions .btn-da-thanh-toan:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+    }
+    
+    .order-actions .btn-da-lay-hang { 
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .order-actions .btn-da-lay-hang:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    .order-actions .btn-xoa-don { 
+        background: var(--gradient-secondary);
+    }
+    .order-actions .btn-xoa-don:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(255, 107, 107, 0.3);
+    }
 
-    .status-tag { display: inline-block; padding: 5px 10px; border-radius: 20px; font-weight: bold; font-size: 0.9em; }
-    .status-pending { background-color: #FFEB3B; color: #795548; }
-    .status-paid { background-color: #51C0F7; color: #fff; }
-    .status-completed { background-color: #4CAF50; color: #fff; }
+    .status-tag { 
+        display: inline-block; 
+        padding: 6px 14px; 
+        border-radius: 20px; 
+        font-weight: bold; 
+        font-size: 0.9em;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .status-pending { 
+        background: linear-gradient(135deg, #ffd93d 0%, #ff9f5a 100%);
+        color: #fff;
+    }
+    .status-paid { 
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+    }
+    .status-completed { 
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        color: #fff;
+    }
 
-    .modal-close-btn { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.8em; color: #999; cursor: pointer; transition: color 0.3s; }
-    .modal-close-btn:hover { color: var(--primary-color); }
+    .modal-close-btn { 
+        position: absolute; 
+        top: 10px; 
+        right: 15px; 
+        background: none; 
+        border: none; 
+        font-size: 1.8em; 
+        color: #999; 
+        cursor: pointer; 
+        transition: color 0.3s;
+    }
+    .modal-close-btn:hover { 
+        color: var(--secondary-color);
+        transform: rotate(90deg);
+    }
 
-    .pre-order-card { background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); margin-bottom: 15px; }
+    .pre-order-card { 
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        padding: 20px; 
+        border-radius: 10px; 
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+        margin-bottom: 15px;
+        border: 1px solid rgba(102, 126, 234, 0.1);
+    }
 
-    .pre-order-footer { display: flex; justify-content: flex-end; align-items: center; margin-top: 15px; }
-    #pre-order-total { font-weight: bold; font-size: 1.3em; margin-right: 15px; color: var(--secondary-color); }
-    #submit-pre-order-btn { padding: 15px 25px; font-size: 1.1em; font-weight: bold; background-color: var(--secondary-color); color: #fff; border: none; border-radius: 10px; cursor: pointer; transition: var(--transition); }
-    #submit-pre-order-btn:hover { background-color: #3a5c3e; transform: translateY(-2px); }
+    .pre-order-footer { 
+        display: flex; 
+        justify-content: flex-end; 
+        align-items: center; 
+        margin-top: 15px; 
+    }
+    #pre-order-total { 
+        font-weight: bold; 
+        font-size: 1.3em; 
+        margin-right: 15px; 
+        background: var(--gradient-secondary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    #submit-pre-order-btn { 
+        padding: 15px 25px; 
+        font-size: 1.1em; 
+        font-weight: bold; 
+        background: var(--gradient-secondary);
+        color: #fff; 
+        border: none; 
+        border-radius: 10px; 
+        cursor: pointer; 
+        transition: var(--transition);
+        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+    }
+    #submit-pre-order-btn:hover { 
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+    }
 
-    #loading-spinner { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.7); justify-content: center; align-items: center; }
-    .spinner { border: 8px solid #f3f3f3; border-top: 8px solid var(--primary-color); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    #loading-spinner { 
+        display: none; 
+        position: fixed; 
+        z-index: 9999; 
+        left: 0; 
+        top: 0; 
+        width: 100%; 
+        height: 100%; 
+        background: rgba(255, 255, 255, 0.8); 
+        justify-content: center; 
+        align-items: center;
+        backdrop-filter: blur(5px);
+    }
+    .spinner { 
+        border: 8px solid #f3f3f3; 
+        border-top: 8px solid var(--secondary-color); 
+        border-radius: 50%; 
+        width: 60px; 
+        height: 60px; 
+        animation: spin 0.8s linear infinite;
+        box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+    }
+    @keyframes spin { 
+        0% { transform: rotate(0deg); } 
+        100% { transform: rotate(360deg); } 
+    }
 
-    .main-container .main-content { grid-column: 2; }
-    .main-container .sidebar { grid-column: 1 / span 1; }
-    .main-container .cart-sidebar { grid-column: 3 / span 1; }
-
-    @media (max-width: 992px) { .main-container { grid-template-columns: 1fr; } }
-
-    /* Di chuyển nút giỏ hàng cố định sang trái */
     .sticky-cart-btn {
         position: fixed;
         bottom: 20px;
         left: 20px;
         right: auto;
         z-index: 500;
-        background-color: var(--secondary-color);
+        background: var(--gradient-secondary);
         color: white;
         padding: 18px;
         border-radius: 50%;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
         cursor: pointer;
-        transition: transform 0.3s, background-color 0.3s;
+        transition: var(--transition);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    .sticky-cart-btn:hover { background-color: #FF7A33; transform: scale(1.06); }
+    .sticky-cart-btn:hover { 
+        transform: scale(1.1);
+        box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
+    }
+
+    .sticky-cart-btn:active {
+        transform: scale(0.98);
+    }
 
     .sticky-cart-btn.pulse-animation { animation: pulse 0.5s; }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    @keyframes pulse { 
+        0% { transform: scale(1); } 
+        50% { transform: scale(1.15); } 
+        100% { transform: scale(1); } 
+    }
 
     #cart-modal .modal-content { min-width: 500px; max-width: 600px; }
     #payment-modal .modal-content { min-width: 500px; max-width: 550px; }
 
-    #payment-methods { display: flex; gap: 15px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
-    #payment-methods button { padding: 12px 25px; font-size: 1em; border-radius: 8px; cursor: pointer; border: 2px solid #ddd; background-color: #f9f9f9; transition: var(--transition); }
-    #payment-methods button:hover { border-color: var(--secondary-color); }
-    #payment-methods button.active { border-color: var(--primary-color); background-color: #fff0f0; font-weight: bold; }
+    #payment-methods { 
+        display: flex; 
+        gap: 15px; 
+        justify-content: center; 
+        margin: 20px 0; 
+        flex-wrap: wrap; 
+    }
+    #payment-methods button { 
+        padding: 12px 25px; 
+        font-size: 1em; 
+        border-radius: 10px; 
+        cursor: pointer; 
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        transition: var(--transition);
+        font-weight: 600;
+        position: relative;
+        overflow: hidden;
+    }
+    #payment-methods button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        transition: left 0.3s ease;
+        z-index: -1;
+    }
+    #payment-methods button:hover::before, #payment-methods button.active::before {
+        left: 0;
+    }
+    #payment-methods button:hover { 
+        border-color: #667eea;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+    #payment-methods button.active { 
+        border-color: #667eea;
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
 
-    #qr-code-container, #bank-info-container { margin-top: 20px; padding: 20px; background-color: #f5f5f5; border-radius: var(--border-radius); display: none; }
+    #qr-code-container, #bank-info-container { 
+        margin-top: 20px; 
+        padding: 20px; 
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        border-radius: var(--border-radius);
+        display: none;
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        animation: slideUp 0.4s ease-out;
+    }
     #bank-info-container { text-align: left; }
     #bank-info-container p { margin: 5px 0; }
     #bank-info-container p b { color: var(--secondary-color); }
 
-    #qr-code-container img { max-width: 200px; height: auto; display: block; margin: 0 auto 15px; border: 1px solid #ddd; }
+    #qr-code-container img { 
+        max-width: 200px; 
+        height: auto; 
+        display: block; 
+        margin: 0 auto 15px; 
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
 
-    #qr-note, #bank-note { background-color: #fffbe6; border: 1px solid #ffe58f; color: #8a6d3b; padding: 15px; border-radius: 8px; font-weight: bold; }
+    #qr-note, #bank-note { 
+        background: linear-gradient(135deg, #ffd93d 0%, #ff9f5a 100%);
+        border: none;
+        color: #fff;
+        padding: 15px; 
+        border-radius: 8px; 
+        font-weight: bold;
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+    }
 
-    #payment-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; }
-    #payment-actions button { padding: 12px 25px; font-size: 1em; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; transition: var(--transition); }
-    #confirm-order-btn { background-color: var(--secondary-color); color: white; }
-    #confirm-order-btn:hover { background-color: #3a5c3e; }
-    #cancel-order-btn { background-color: #e74c3c; color: white; }
-    #cancel-order-btn:hover { background-color: #c0392b; }
-
-    /* ===================================== */
-    /* Responsive tweaks */
-    /* ===================================== */
+    #payment-actions { 
+        display: flex; 
+        justify-content: flex-end; 
+        gap: 10px; 
+        margin-top: 30px; 
+    }
+    #payment-actions button { 
+        padding: 12px 25px; 
+        font-size: 1em; 
+        font-weight: bold; 
+        border-radius: 10px; 
+        border: none; 
+        cursor: pointer; 
+        transition: var(--transition);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    #confirm-order-btn { 
+        background: var(--gradient-secondary);
+        color: white;
+        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+    }
+    #confirm-order-btn:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+    }
+    #cancel-order-btn { 
+        background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+        color: white;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    #cancel-order-btn:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
     @media (max-width: 768px) {
         body { font-size: 14px; }
 
         header { flex-direction: column; padding: 15px 20px; text-align: center; gap: 10px; }
-        h1 { font-size: 2em; } h2 { font-size: 1.8em; }
+        h1 { font-size: 2em; } 
+        h2 { font-size: 1.8em; }
 
         .main-container { grid-template-columns: 1fr; padding: 0 10px; margin-top: 15px; gap: 15px; }
         .card { padding: 20px; }
@@ -697,11 +1151,13 @@
         .category-filter { justify-content: center; }
         #product-list { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
 
-        .product h3 { font-size: 1.1em; } .product p { font-size: 1.1em; }
+        .product h3 { font-size: 1.1em; } 
+        .product p { font-size: 1.1em; }
         .product button { padding: 8px 15px; font-size: 0.9em; width: calc(100% - 30px); max-width: none; bottom: 10px; }
 
         .cart-item img { width: 60px; height: 60px; margin-right: 10px; }
-        .cart-item-info h4 { font-size: 1em; } .cart-item-info p { font-size: 1em; }
+        .cart-item-info h4 { font-size: 1em; } 
+        .cart-item-info p { font-size: 1em; }
 
         .quantity-control button { padding: 3px 8px; }
 
@@ -717,26 +1173,32 @@
         #admin-search-btn, #admin-search-clear-btn { width: 100%; }
         #admin-dashboard { grid-template-columns: 1fr; }
 
-        /* Admin filter buttons wrap */
         #admin-filter-buttons { flex-wrap: wrap; }
         .admin-order-item { padding: 15px; }
 
-        /* Make admin button in top-left on mobile */
         #admin-btn { left: 12px; top: 12px; transform: none; position: absolute; }
         .sticky-cart-btn { left: 14px; bottom: 16px; }
     }
 
-    /* ====== Admin: wider orders view + compact controls ====== */
+    .main-container .main-content { grid-column: 2; }
+    .main-container .sidebar { grid-column: 1 / span 1; }
+    .main-container .cart-sidebar { grid-column: 3 / span 1; }
 
-    /* Give admin page more usable width on large screens */
+    @media (max-width: 992px) { 
+        .main-container { grid-template-columns: 1fr; } 
+        .admin-order-item { display: block; padding: 12px; }
+        .admin-page .admin-page-content { max-width: 100%; padding: 12px; }
+        .admin-dashboard .dashboard-item p { font-size: 1.6rem; }
+        #orders-list-admin-filtered { max-height: 56vh; }
+    }
+
     .admin-page .admin-page-content {
-        max-width: 1400px;   /* larger admin area */
+        max-width: 1400px;
         width: 95%;
         padding: 18px;
         box-sizing: border-box;
     }
 
-    /* Make admin header and dashboard more compact */
     .admin-header {
         margin-bottom: 12px;
         padding-bottom: 6px;
@@ -753,45 +1215,36 @@
     }
     .admin-dashboard .dashboard-item p { font-size: 1.9rem; margin-top: 6px; }
 
-    /* Make search + filter controls tighter */
     #admin-search-box { gap: 8px; margin-bottom: 12px; align-items: center; }
     #admin-search-box input#admin-search-input { padding: 8px; font-size: 0.95rem; border-radius: 6px; }
     #admin-search-btn, #admin-search-clear-btn { padding: 8px 12px; font-size: 0.95rem; border-radius: 8px; }
 
-    /* Small tweak for filter buttons */
     #admin-filter-buttons .filter-btn {
         padding: 8px 14px;
         font-size: 0.95rem;
         border-radius: 18px;
     }
 
-    /* Expand the orders list area and make each order card a two-column layout:
-       - left: larger order-info for details
-       - right: narrow action column for buttons/status
-    */
     #orders-list-admin-filtered {
         flex-grow: 1;
-        max-height: 68vh; /* keep within view */
+        max-height: 68vh;
         overflow-y: auto;
         padding-right: 12px;
     }
 
-    /* Layout each order card with larger detail area */
     .admin-order-item {
         display: grid;
-        grid-template-columns: 1fr 240px; /* more room for details, action buttons in narrow column */
+        grid-template-columns: 1fr 240px;
         gap: 18px;
         align-items: start;
         padding: 16px;
         border-radius: 12px;
     }
 
-    /* Left column: order details should take up extra space */
     .admin-order-item .order-info {
         padding-right: 6px;
     }
 
-    /* Make product list in an order easier to scan */
     .admin-order-item .order-info ul {
         margin: 8px 0 0;
         padding-left: 18px;
@@ -799,7 +1252,6 @@
         overflow-y: auto;
     }
 
-    /* Right column: actions compact and vertically aligned */
     .admin-order-item .order-actions {
         justify-self: end;
         display: flex;
@@ -814,30 +1266,291 @@
         border-radius: 8px;
     }
 
-    /* Make long text wrap nicely in details */
     .admin-order-item .order-info p, .admin-order-item .order-info h4 {
         word-break: break-word;
     }
 
-    /* Reduce whitespace / size for other modal-like forms (login, payment, pre-order) */
     #admin-modal .modal-content { min-width: 340px; max-width: 520px; }
     #payment-modal .modal-content { min-width: 340px; max-width: 620px; padding: 18px; }
     #cart-modal .modal-content { min-width: 360px; max-width: 620px; }
     .pre-order-modal-content { width: 92%; max-width: 700px; padding: 16px; }
 
-    /* Reduce padding for elements inside modals */
     .modal-content input, .modal-content button, .pre-order-modal-content input, .pre-order-modal-content button {
         padding: 8px 10px;
         font-size: 0.95rem;
     }
 
-    /* Responsive: keep single-column admin view on narrow screens */
-    @media (max-width: 992px) {
-        .admin-order-item { display: block; padding: 12px; }
-        .admin-page .admin-page-content { max-width: 100%; padding: 12px; }
-        .admin-dashboard .dashboard-item p { font-size: 1.6rem; }
-        #orders-list-admin-filtered { max-height: 56vh; }
+    input[type="text"], input[type="password"], input[type="tel"], input[type="email"], textarea {
+        border: 2px solid rgba(102, 126, 234, 0.2) !important;
+        border-radius: 8px !important;
+        padding: 12px !important;
+        transition: var(--transition) !important;
+        font-family: 'Poppins', sans-serif !important;
     }
+
+    input[type="text"]:focus, input[type="password"]:focus, input[type="tel"]:focus, input[type="email"]:focus, textarea:focus {
+        outline: none !important;
+        border-color: #667eea !important;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+    }
+
+    textarea {
+        resize: vertical !important;
+        min-height: 60px !important;
+    }
+
+    .pre-order-modal-content .product {
+        cursor: default;
+    }
+
+    .pre-order-modal-content .product:hover {
+        transform: none;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.15);
+    }
+
+    .pre-order-modal-content .product button {
+        background: var(--gradient-secondary);
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9em;
+        font-weight: 600;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+    }
+
+    .pre-order-modal-content .product button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(255, 107, 107, 0.3);
+    }
+
+    #pre-order-product-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 15px;
+    }
+
+    #pre-order-cart-items {
+        max-height: 200px;
+        overflow-y: auto;
+        padding-right: 15px;
+        margin-top: 20px;
+    }
+
+    .pre-order-card h4 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0;
+        border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+        padding-bottom: 10px;
+        color: var(--text-color);
+    }
+
+    #customer-info-section {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%) !important;
+        border-left: 4px solid var(--secondary-color) !important;
+        border-radius: 8px !important;
+    }
+
+    #customer-info-section h3 {
+        color: var(--secondary-color) !important;
+    }
+
+    .toggle-detail-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        border-radius: 8px;
+        border: none;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .toggle-detail-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .overlay {
+        display: block;
+    }
+
+
+
+
+
+
+
+
+    .desktop-hidden {
+        display: none !important;
+    }
+
+    body.mobile-mode .mobile-hidden {
+        display: none !important;
+    }
+
+    body.mobile-mode .sidebar {
+        grid-column: 1 / span 1 !important;
+        order: -1;
+    }
+
+    body.mobile-mode .main-content {
+        grid-column: 1 / span 1 !important;
+        order: 0;
+    }
+
+    body.mobile-mode .cart-sidebar {
+        display: none !important;
+    }
+
+    body.mobile-mode .main-container {
+        grid-template-columns: 1fr !important;
+    }
+
+    body.mobile-mode .card.sidebar h2 {
+        font-size: 1.3em !important;
+    }
+
+    body.mobile-mode header {
+        padding: 12px 15px !important;
+    }
+
+    body.mobile-mode h1 {
+        font-size: 1.5em !important;
+    }
+
+    body.mobile-mode .sticky-cart-btn {
+        bottom: 15px !important;
+        left: 15px !important;
+        padding: 16px !important;
+    }
+
+    body.mobile-mode .sticky-cart-btn i {
+        font-size: 1.3em !important;
+    }
+
+    body.mobile-mode #product-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+        gap: 15px !important;
+    }
+
+    body.mobile-mode .product {
+        padding: 15px 15px 70px !important;
+    }
+
+    body.mobile-mode .product button {
+        bottom: 12px !important;
+        padding: 10px 8px !important;
+        font-size: 0.85em !important;
+        width: calc(100% - 30px) !important;
+    }
+
+    body.mobile-mode .product h3 {
+        font-size: 1em !important;
+        margin: 8px 0 3px 0 !important;
+    }
+
+    body.mobile-mode .product p {
+        font-size: 1em !important;
+        margin: 0 0 10px 0 !important;
+    }
+
+    body.mobile-mode .category-btn {
+        padding: 8px 16px !important;
+        font-size: 0.9em !important;
+    }
+
+    body.mobile-mode .modal-content {
+        min-width: 95% !important;
+        max-width: 95% !important;
+    }
+
+    body.mobile-mode #admin-btn {
+        left: 10px !important;
+        padding: 8px 12px !important;
+        font-size: 0.85em !important;
+    }
+
+    body.mobile-mode .cart-total {
+        font-size: 1.2em !important;
+    }
+
+    body.mobile-mode #order-btn {
+        padding: 12px !important;
+        font-size: 0.95em !important;
+    }
+
+    body.mobile-mode .payment-methods {
+        flex-direction: column !important;
+    }
+
+    body.mobile-mode .payment-methods button {
+        width: 100% !important;
+    }
+
+    body.mobile-mode .modal-content {
+        padding: 20px !important;
+    }
+
+    body.mobile-mode #payment-modal .modal-content {
+        min-width: 90% !important;
+        max-width: 95% !important;
+    }
+
+    body.mobile-mode #change-device-btn {
+        display: flex !important;
+    }
+
+    #change-device-btn {
+        display: none;
+    }
+
+    body.mobile-mode #change-device-btn:hover {
+        transform: scale(1.1) !important;
+    }
+
+    @media (max-width: 480px) {
+        #change-device-btn {
+            right: 15px !important;
+            bottom: 80px !important;
+        }
+    }
+
+        body.mobile-mode .product button {
+            width: calc(100% - 20px) !important;
+        }
+
+        body.mobile-mode #product-list {
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)) !important;
+            gap: 10px !important;
+        }
+
+        body.mobile-mode .product {
+            padding: 10px 10px 65px !important;
+        }
+
+        body.mobile-mode .product img {
+            height: 100px !important;
+        }
+
+        body.mobile-mode h1 {
+            font-size: 1.3em !important;
+        }
+    }
+
 </style>
 
     
@@ -871,7 +1584,7 @@
                 </div>
             </section>
 
-            <section class="card cart-sidebar">
+            <section class="card cart-sidebar mobile-hidden">
                 <h2><i class="fas fa-receipt"></i> Kiểm Tra Đơn Hàng</h2>
                 <div id="check-order-box">
                     <input type="text" id="order-check-input" placeholder="Nhập mã đơn hàng..." style="width: 100%; padding: 12px; box-sizing: border-box; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 10px;" />
@@ -1010,6 +1723,23 @@
     </div>
 
     <!-- Admin Order Detail Modal -->
+    <div id="admin-stats-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeAdminStats()">&times;</button>
+            <h3><i class="fas fa-chart-pie"></i> Thống kê món</h3>
+            <div style="text-align:left; margin-top:12px;">
+                <p><b>Tổng đơn:</b> <span id="stat-total-orders">0</span></p>
+                <p><b>Số đơn đã xác nhận:</b> <span id="stat-confirmed-orders">0</span></p>
+                <p><b>Tổng số món đã đặt:</b> <span id="stat-food-items">0</span></p>
+                <h4 style="margin-top:12px;">Chi tiết theo món:</h4>
+                <div id="stat-items-list" style="max-height:40vh; overflow:auto; padding:8px; border-radius:8px; background:#f7f9fb;">
+                    <!-- danh sách món sẽ được render ở đây: Tên — Tổng (Đã xác nhận) -->
+                </div>
+            </div>
+            <div style="display:flex; justify-content:flex-end; margin-top:16px;"><button class="main-action-btn" onclick="closeAdminStats()">Đóng</button></div>
+        </div>
+    </div>
+
     <div id="admin-order-detail-modal" class="modal">
         <div class="modal-content">
             <button class="modal-close-btn" onclick="closeAdminOrderDetail()">&times;</button>
@@ -1029,6 +1759,9 @@
                     <button id="notif-btn" onclick="openNotifications()" style="position:relative; margin-right:8px;">
                         <i class="fas fa-bell"></i>
                         <span id="notif-badge" style="position:absolute; top:-6px; right:-6px; background:#e74c3c; color:#fff; font-size:0.75rem; padding:3px 6px; border-radius:999px; display:none;">0</span>
+                    </button>
+                    <button id="admin-stats-btn-admin" title="Thống kê món đã đặt" style="padding:8px 12px; border-radius:8px; border:none; background:#fff; color:var(--primary-color); font-weight:700; display:flex; align-items:center; gap:8px;">
+                        <i class="fas fa-utensils"></i> Thống kê Món
                     </button>
                     <button id="clear-completed-orders-btn" onclick="clearCompletedOrders()">
                         <i class="fas fa-broom"></i> Xóa Đơn Hoàn Thành
@@ -1088,6 +1821,32 @@
             viewportMeta.setAttribute('content', "width=device-width, initial-scale=1.0");
         }
         setupViewport();
+
+        function autoDetectDevice() {
+            const screenWidth = window.innerWidth;
+            if (screenWidth <= 768) {
+                applyDeviceMode('mobile');
+            } else {
+                applyDeviceMode('desktop');
+            }
+        }
+
+        function applyDeviceMode(device) {
+            if (device === 'mobile') {
+                document.body.classList.add('mobile-mode');
+                document.documentElement.style.fontSize = '16px';
+            } else {
+                document.body.classList.remove('mobile-mode');
+            }
+        }
+
+        window.addEventListener('load', () => {
+            autoDetectDevice();
+        });
+
+        window.addEventListener('resize', () => {
+            autoDetectDevice();
+        });
 
         const JSONBIN_API_KEY = '$2a$10$Ty8HvRqKPOpJsXQRP.cLxeAARlfxR9z2.XRrPnzWKzLtCsoqutZba';
         const JSONBIN_BIN_ID = '68ac4d92ae596e708fd50e99';
@@ -1856,8 +2615,91 @@
         }
 
         // Ensure badge updated on load
-        updateNotifBadge();
+        // --- Quick admin stats: compute and render counts ---
+        function computeAdminStats() {
+            const all = Array.isArray(orders) ? orders : [];
+            const totalOrders = all.length;
+            const confirmedStatuses = ['paid','completed'];
+            const confirmedOrders = all.filter(o => confirmedStatuses.includes((o.status||'').toLowerCase())).length;
 
+            // Aggregate per-item totals and confirmed totals
+            const itemMap = {}; // name -> { total: n, confirmed: m }
+            let totalFoodItems = 0;
+            all.forEach(o => {
+                const isConfirmed = confirmedStatuses.includes((o.status||'').toLowerCase());
+                if (!Array.isArray(o.items)) return;
+                o.items.forEach(it => {
+                    const name = it.name || 'Không rõ';
+                    const qty = parseInt(it.quantity) || 1;
+                    if (!itemMap[name]) itemMap[name] = { total: 0, confirmed: 0 };
+                    itemMap[name].total += qty;
+                    if (isConfirmed) itemMap[name].confirmed += qty;
+                    totalFoodItems += qty;
+                });
+            });
+
+            // Render summary numbers
+            const elTotal = document.getElementById('stat-total-orders');
+            const elFood = document.getElementById('stat-food-items');
+            const elConfirmed = document.getElementById('stat-confirmed-orders');
+            if (elTotal) elTotal.innerText = totalOrders;
+            if (elFood) elFood.innerText = totalFoodItems;
+            if (elConfirmed) elConfirmed.innerText = confirmedOrders;
+
+            // Render per-item breakdown
+            const itemsList = document.getElementById('stat-items-list');
+            if (itemsList) {
+                const rows = Object.keys(itemMap).sort().map(name => {
+                    const it = itemMap[name];
+                    return `<div style="display:flex; justify-content:space-between; padding:6px 8px; border-bottom:1px dashed #eee;"><div style="font-weight:600;">${name}</div><div style="color:var(--secondary-color);">${it.total} <span style="color:#666; font-weight:600; font-size:0.9rem;">(Đã xác nhận: ${it.confirmed})</span></div></div>`;
+                }).join('');
+                itemsList.innerHTML = rows || '<i>Chưa có món nào được đặt.</i>';
+            }
+
+            // update main admin dashboard counters if present
+            const t = document.getElementById('total-orders'); if (t) t.innerText = totalOrders;
+            const p = document.getElementById('pending-orders'); if (p) p.innerText = all.filter(o => o.status === 'pending').length;
+            const paid = document.getElementById('paid-orders'); if (paid) paid.innerText = all.filter(o => o.status === 'paid').length;
+            const bank = document.getElementById('bank-orders'); if (bank) bank.innerText = all.filter(o => o.status === 'bank-pending').length;
+            const comp = document.getElementById('completed-orders'); if (comp) comp.innerText = all.filter(o => o.status === 'completed').length;
+        }
+
+        function openAdminStats() {
+            // ensure latest orders fetched before computing
+            fetchOrders().then(fetched => {
+                orders = Array.isArray(fetched) ? fetched : orders;
+                computeAdminStats();
+                const modal = document.getElementById('admin-stats-modal');
+                if (modal) {
+                    // move to body to avoid stacking-context issues and force on-top
+                    if (modal.parentElement !== document.body) document.body.appendChild(modal);
+                    modal.style.position = 'fixed';
+                    modal.style.zIndex = '999999';
+                    modal.style.display = 'flex';
+                    // ensure modal-content sits above overlay
+                    const content = modal.querySelector('.modal-content');
+                    if (content) content.style.zIndex = '1000000';
+                    setTimeout(() => modal.classList.add('show'), 10);
+                } else {
+                    alert('Số món đã đặt: ' + document.getElementById('stat-food-items').innerText + '\nĐơn đã xác nhận: ' + document.getElementById('stat-confirmed-orders').innerText);
+                }
+            }).catch(err => { console.error(err); computeAdminStats(); const m = document.getElementById('admin-stats-modal'); if (m) { m.style.display='flex'; setTimeout(()=>m.classList.add('show'),10);} });
+        }
+
+        function closeAdminStats() {
+            const modal = document.getElementById('admin-stats-modal');
+            if (!modal) return;
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        }
+
+        // bind header and admin-page buttons
+        try { document.getElementById('admin-stats-btn').addEventListener('click', openAdminStats); } catch(e) {}
+        try { document.getElementById('admin-stats-btn-admin').addEventListener('click', openAdminStats); } catch(e) {}
+
+        // refresh stats periodically while page active
+        setInterval(() => { try { computeAdminStats(); } catch(e){} }, 5000);
+        updateNotifBadge();
         renderProducts('all');
     </script>
 </body>

@@ -1501,6 +1501,10 @@
         width: 100% !important;
     }
 
+    body.mobile-mode #admin-btn {
+        display: none !important;
+    }
+
     body.mobile-mode .modal-content {
         padding: 20px !important;
     }
@@ -1514,19 +1518,110 @@
         display: flex !important;
     }
 
-    #change-device-btn {
-        display: none;
+    #device-selection-modal {
+        display: flex;
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
     }
 
-    body.mobile-mode #change-device-btn:hover {
-        transform: scale(1.1) !important;
+    #device-selection-modal.show .device-selection-content {
+        transform: scale(1);
+        opacity: 1;
     }
 
-    @media (max-width: 480px) {
-        #change-device-btn {
-            right: 15px !important;
-            bottom: 80px !important;
-        }
+    .device-selection-content {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 500px;
+        transform: scale(0.95);
+        opacity: 0;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .device-selection-content h2 {
+        border: none;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 30px;
+        font-size: 1.8em;
+    }
+
+    .device-selection-content p {
+        color: var(--light-text-color);
+        margin-bottom: 30px;
+        font-size: 1.05em;
+    }
+
+    .device-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .device-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 25px 35px;
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 15px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+        font-size: 1.1em;
+        color: var(--text-color);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .device-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        transition: left 0.3s ease;
+        z-index: -1;
+    }
+
+    .device-btn:hover::before {
+        left: 0;
+    }
+
+    .device-btn:hover {
+        color: #fff;
+        border-color: #667eea;
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .device-btn i {
+        font-size: 2.5em;
+        color: #667eea;
+    }
+
+    .device-btn:hover i {
+        color: #fff;
     }
 
         body.mobile-mode .product button {
@@ -1559,6 +1654,23 @@
     <div id="loading-spinner"><div class="spinner"></div></div>
     
     <div id="toast-notification">Đã thêm vào giỏ hàng!</div>
+
+    <div id="device-selection-modal">
+        <div class="device-selection-content">
+            <h2><i class="fas fa-mobile-alt"></i> Chọn Thiết Bị</h2>
+            <p>Bạn đang dùng điện thoại hay máy tính?</p>
+            <div class="device-buttons">
+                <button class="device-btn" onclick="selectDevice('mobile')">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>📱 Điện Thoại</span>
+                </button>
+                <button class="device-btn" onclick="selectDevice('desktop')">
+                    <i class="fas fa-desktop"></i>
+                    <span>💻 Máy Tính</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div class="overlay">
         <header>
@@ -2463,13 +2575,44 @@
             }, 300);
         }
         
-        window.selectPaymentMethod = function(method, btn) {
-            selectedPaymentMethod = method;
-            document.querySelectorAll('#payment-methods button').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById('qr-code-container').style.display = (method === 'qr') ? 'block' : 'none';
-            document.getElementById('bank-info-container').style.display = (method === 'bank') ? 'block' : 'none';
-        }
+        // --- Device Selection Handler ---
+        window.selectDevice = function(deviceType) {
+            const modal = document.getElementById('device-selection-modal');
+            modal.classList.remove('show');
+            
+            if (deviceType === 'mobile') {
+                document.body.classList.add('mobile-mode');
+                localStorage.setItem('deviceMode', 'mobile');
+            } else {
+                document.body.classList.remove('mobile-mode');
+                localStorage.setItem('deviceMode', 'desktop');
+            }
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.querySelector('.overlay').style.display = 'block';
+            }, 300);
+        };
+
+        // Initialize device selection on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedMode = localStorage.getItem('deviceMode');
+            const deviceModal = document.getElementById('device-selection-modal');
+            
+            if (!savedMode && deviceModal) {
+                // No saved preference, show the modal
+                setTimeout(() => {
+                    deviceModal.classList.add('show');
+                }, 300);
+            } else if (savedMode === 'mobile') {
+                document.body.classList.add('mobile-mode');
+                if (deviceModal) deviceModal.style.display = 'none';
+            } else {
+                if (deviceModal) deviceModal.style.display = 'none';
+            }
+        });
+
+        // --- End Device Selection ---
         
         // --- Notifications helpers ---
         let lastOpenedNotificationCode = null;
